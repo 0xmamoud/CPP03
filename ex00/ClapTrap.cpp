@@ -8,9 +8,9 @@ ClapTrap::ClapTrap(std::string _name): name(_name), hp(10), stamina(10), damage(
 	std::cout << "ClapTrap string constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap &claptrap)
- : name(claptrap.name), hp(claptrap.hp), stamina(claptrap.stamina), damage(claptrap.damage) {
+ClapTrap::ClapTrap(const ClapTrap &claptrap) {
 	std::cout << "ClapTrap copy constructor called" << std::endl;
+	*this = claptrap;
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &claptrap) {
@@ -21,7 +21,6 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &claptrap) {
 		this->set_stamina(claptrap.get_stamina());
 		this->set_attack_damage(claptrap.get_attack_damage());
 	}
-
 	return *this;
 }
 
@@ -31,23 +30,23 @@ ClapTrap::~ClapTrap() {
 
 void ClapTrap::attack(const std::string &target) {
 	if (this->get_hp() <= 0) {
-		std::cout << this->get_name() << " is already dead, can't attack any more !";
+		std::cout << "ClapTrap " << this->get_name() << " is already dead, can't attack any more !";
 		return ;
 	}
 	if (this->get_stamina() <= 0) {
-		std::cout << this->get_name() << " can't attack, out of stamina !" << std::endl;
+		std::cout << "ClapTrap " << this->get_name() << " can't attack, out of stamina !" << std::endl;
 		return ;
 	}
 	this->stamina--;
-	std::cout << this->get_name() << " attacked " << target << std::endl;
+	std::cout << "ClapTrap " << this->get_name() << " attacked " << target << std::endl;
 }
 
 void ClapTrap::takeDamage(unsigned int amount) {
 	if (this->get_hp() <= 0) {
-		std::cout << this->get_name() << " is already dead, can't take damage !" << std::endl;
+		std::cout << "ClapTrap " << this->get_name() << " is already dead, can't take damage !" << std::endl;
 		return ;
 	}
-	std::cout << this->get_name() << " took " << amount << " damage !" << std::endl;
+	std::cout << "ClapTrap " << this->get_name() << " took " << amount << " damage !" << std::endl;
 	if (this->get_hp() <= amount) {
 		this->set_hp(0);
 	}	else {
@@ -57,16 +56,16 @@ void ClapTrap::takeDamage(unsigned int amount) {
 
 void ClapTrap::beRepaired(unsigned int amount) {
 	if (this->get_hp() <= 0) {
-		std::cout << this->get_name() << " is already dead, can't repaire !" << std::endl;
+		std::cout << "ClapTrap " << this->get_name() << " is already dead, can't repaire !" << std::endl;
 		return ;
 	}
 	if (this->get_stamina() <= 0) {
-		std::cout << this->get_name() << " can't repare, out of  stamina !" << std::endl;
+		std::cout << "ClapTrap " << this->get_name() << " can't repare, out of  stamina !" << std::endl;
 		return ;
 	}
 	this->stamina--;
 	this->hp += amount;
-	std::cout << this->get_name() << " gains " <<  amount << " hp, " << "total hp = " << this->hp << std::endl;
+	std::cout << "ClapTrap " << this->get_name() << " gains " <<  amount << " hp, " << "total hp = " << this->hp << std::endl;
 }
 
 std::string ClapTrap::get_name(void) const {
